@@ -1,0 +1,99 @@
+*GameIntro*
+Author: Ewa Pasterz
+*Verbs*
+get(get,pick up)
+pet(pet,worship)
+open(open,unlock)
+leave(leave,emerge,walk out,exit)
+jump(jump)
+end(end)
+*Nouns* 
+key,cat,door,room
+*Inventory*
+bottle of water,shoe
+*Flags*
+started game,door closed,cat neutral
+*AllScenes*
+1,2,3,4
+*EndScenes*
+4
+*DefaultScene*
+{
+Description:
+Interactions:
+[
+Sentence: jump(jump);
+Actions:
+CTrue; You jump up and down. It does not change your situation;<
+]
+}
+*Scene1*
+{
+Description:
+CTrue; You are in a room.<
+CNot FlagSet door open; The only doors in the room are closed.<
+CNot InInventory key; You see a rusty key on the floor.<
+CNot InInventory cat; You are not alone, there is also a small black cat in the room with you.<
+Interactions:
+[
+Sentence: get(get,pick up)|key;
+Actions:
+CNot InInventory key; You pick up the key.; AddToInventory key<
+]
+[
+Sentence: pet(pet,worship)|cat;
+Actions:
+FlagSet cat neutral; The cat purrs. It seems to like you now.; RemoveFlag cat neutral,SetFlag cat friend<
+FlagSet cat friend; The cat purrs. It loves you.;<
+FlagSet cat enemy; Why would you try to pet a cat that hates you?; ChangeScene 3<
+]
+[
+Sentence: get(get,pick up)|cat;
+Actions:
+CAnd CNot InInventory cat,FlagSet cat friend; You now have a pet.; AddToInventory cat<
+FlagSet cat neutral; The cat is independent and does not want to be picked up by a stranger. It hisses and escapes you. It doesn’t seem to like you very much.; RemoveFlag cat neutral,SetFlag cat enemy<
+FlagSet cat enemy; Why would you try to pick it up again?; ChangeScene 3<
+]
+[
+Sentence: open(open,unlock)|door;
+Actions:
+InInventory key; You try to open the door using the rusty key. It works, the door is now open and you can leave the room.; RemoveFlag door closed,SetFlag door open<
+CNot InInventory key; You try to open the door but it is closed. A key would probably be useful.;<
+]
+[
+Sentence: leave(leave,emerge,walk out,exit)|room;
+Actions:
+FlagSet door open; You walk through the door and leave the room.; ChangeScene 2<
+FlagSet door closed; You cannot leave the room, the door is closed!;<
+]
+}
+*Scene2*
+{
+Description:
+CTrue; You have left the room. Apparently, the room was a small cabin in the woods. You are now free to roam the forest.<
+InInventory cat; Your kitty friend is of course coming with you.<
+CTrue; This is the end of the game. Please write "end" to exit the game.<
+Interactions:
+[
+Sentence: end(end);
+Actions:
+CTrue; Thank you for playing. Please press enter to end game and interpreter.; ChangeScene 4<
+]
+}
+*Scene3*
+{
+Description:
+CTrue; Kitty hisses and jumps at your face. It scratches and scratches until you bleed. You fall on the floor, unable to move. You bleed out while the world fades to black… You die, game over.<
+CTrue; Please write "end" to end the game.<
+Interactions:
+[
+Sentence: end(end);
+Actions:
+CTrue; Thank you for playing. Please press enter to end game and interpreter.; ChangeScene 4<
+]
+}
+*Scene4*
+{
+Description:
+Interactions:
+}

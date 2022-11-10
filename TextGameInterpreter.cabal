@@ -1,0 +1,38 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           TextGameInterpreter
+version:        0.1.0.0
+category:       Web
+homepage:       https://github.com/githubuser/TextGameInterpreter#readme
+author:         Ewa Pasterz
+maintainer:     example@example.com
+copyright:      2022 Ewa Pasterz
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+
+executable TextGameInterpreter
+  main-is: Main.hs
+  other-modules:
+      GameEngine
+      InterpreterParsec
+      Lexer
+      Parser
+      SaveModule
+      TextReflow
+      Paths_TextGameInterpreter
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , parsec >=3.1.14.0
+    , split
+    , text
+  default-language: Haskell2010

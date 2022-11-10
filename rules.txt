@@ -1,0 +1,52 @@
+ZASADY:
+
+1. Kolejność elementów
+*GameIntro*
+*Verbs*
+*Nouns*
+*Inventory*
+*Flags*
+*DefaultScene*
+*Scene1*
+[...]
+*Scenen*
+
+2. Pod nagłówkami piszemy ich opis
+3. Pisanie GameIntro - po prostu tekst bez *
+4. Pisanie Verbs: każdy TokenVerb w nowej linii, wszystkie synonimy wypisane w nawiasach bez przerw po przecinkach, 
+   zapis: verb(verb,synonyms)
+5. Pisanie Nouns: przedmioty oddzielone przecinkami, bez przerw
+6. Pisanie Inventory: j.w.
+7. Pisanie Flags: j.w.
+8. Pisanie scen (numerowanych bądź default):
+*SceneTitle*
+{
+Description:
+Flaga; Opis<
+[...]
+Flaga;Opis<
+Interactions:
+[
+Sentence: verb(verbs)|noun; [lub samo verb(verbs);]
+Actions:
+Warunek; Opis; Zmiany<
+...
+Warunek; Opis; Zmiany<
+]
+[
+kolejna interakcja
+]
+}
+
+Description i Interactions nie są w scenach obowiązkowe, ale nagłówki należy umieścić.
+
+9. Możliwe warunki: FlagSet flaga, InInventory przedmiot, CNot warunek, CTrue, CFalse, 
+   SceneIs nr.sceny (default to 0), CAnd warunki oddzielone przecinkami bez przerw, COr warunki jak w CAnd
+
+10. Możliwe zmiany: AddToInventory obiekt, RemoveFromInventory obiekt, SetFlag flaga, RemoveFlag flaga, 
+    ChangeScene nr.sceny
+
+11. Należy na końcu umieścić "pustą" scenę, bez Description i bez Interaction. Do przejścia do końca warto użyć
+    konkretnego czasownika, np. "end".
+
+12. Lepiej nie używać symbolu ' ani trzykropka w tekstach.
